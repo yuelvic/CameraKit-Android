@@ -5,13 +5,16 @@ import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
+import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -412,7 +415,13 @@ public class Camera1 extends CameraImpl {
 
         mMediaRecorder.setProfile(getCamcorderProfile(mVideoQuality));
 
-        mVideoFile = new File(mPreview.getView().getContext().getExternalFilesDir(null), "video.mp4");
+        mVideoFile = new File(Environment.getExternalStorageDirectory() + "/XelebRecordings/");
+        if (!mVideoFile.exists()) {
+            if (!mVideoFile.mkdirs()) return;
+        }
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        mVideoFile = new File(mVideoFile.getPath() + File.separator + "VID_" + timestamp + ".mp4");
+
         mMediaRecorder.setOutputFile(mVideoFile.getAbsolutePath());
         mMediaRecorder.setOrientationHint(mCameraInfo.orientation);
     }
