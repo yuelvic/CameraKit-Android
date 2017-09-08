@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -19,6 +20,10 @@ import com.flurgle.camerakit.CameraListener;
 import com.flurgle.camerakit.CameraView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -139,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLayoutChan
             public void run() {
                 camera.stopRecordingVideo();
             }
-        }, 3000);
+        }, 10000);
     }
 
     @OnClick(R.id.toggleCamera)

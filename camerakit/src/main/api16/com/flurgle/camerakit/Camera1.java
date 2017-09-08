@@ -6,6 +6,7 @@ import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.os.Environment;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -424,6 +425,11 @@ public class Camera1 extends CameraImpl {
 
         mMediaRecorder.setOutputFile(mVideoFile.getAbsolutePath());
         mMediaRecorder.setOrientationHint(mCameraInfo.orientation);
+
+        mMediaRecorder.setVideoSize(
+                getCaptureResolution().getWidth(),
+                getCaptureResolution().getHeight()
+        );
     }
 
     private void prepareMediaRecorder() {
